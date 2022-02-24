@@ -8,28 +8,28 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	if(mg_http_match_uri(hm, "/books"))
 	{
 		if(strncmp(hm->method.ptr, "POST", 4) == 0)
-			mg_http_reply(c, 200, "", "Endpoit books/ metodo post");
-
+			return (mg_http_reply(c, 200, "", create_book(hm)));
+			
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
-			mg_http_reply(c, 200, "", "Endpoit books/ metodo get");
+			return (mg_http_reply(c, 200, "", show_books()));
 
 		else
-			mg_http_reply(c, 405, "", "Metodo nao permitido");
+			return (mg_http_reply(c, 405, "", "Metodo nao permitido"));
 	}
 
 	else if (mg_http_match_uri(hm, "/books/*"))
 	{
 		if(strncmp(hm->method.ptr, "DELETE", 6) == 0)
-			mg_http_reply(c, 200, "", "Endpoit books/* metodo delete");
+			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo delete"));
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
-			mg_http_reply(c, 200, "", "Endpoit books/* metodo GET");
+			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo GET"));
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
-			mg_http_reply(c, 200, "", "Endpoit books/* metodo PUT");
+			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo PUT"));
 
 		else
-			mg_http_reply(c, 405, "", "Metodo nao permitido");
+			return (mg_http_reply(c, 405, "", "Metodo nao permitido"));
 	}
 
 	/* Categorys endpoits */

@@ -1,5 +1,10 @@
 # ifndef SERVER_H
 # define SERVER_H
+# define HOST "http://0.0.0.0:3333"
+# define HOSTDB "localhost"
+# define USER "moacir"
+# define PASSWORD "12091997"
+# define DB "labs"
 
 # include <stdio.h>
 # include "mongoose.h"
@@ -8,9 +13,24 @@
 # include <json-c/json.h>
 # include <string.h>
 
-#define HOST "http://0.0.0.0:3333"
+typedef struct book {
+	char	name[255];
+	char	publish_date[255];
+	char	author[255];
+	char	publisher[255];
+	char	ISBN[255];
+	char	category_code[255];
+}	new_book;
 
-void	routes(struct mg_connection *c,struct mg_http_message *hm);
 
+
+void		routes(struct mg_connection *c,struct mg_http_message *hm);
+
+
+MYSQL_RES	*get_books(void);
+void	store_book(new_book *book);
+
+char 		*show_books();
+char		*create_book(struct mg_http_message *hm);
 
 # endif
