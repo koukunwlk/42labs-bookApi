@@ -28,7 +28,8 @@ PATH_CONTROLLERS = $(PATH_SRC)controllers/
 PATH_MODELS = $(PATH_SRC)models/
 PATH_LIBS = $(PATH_SRC)libs/
 PATH_APP = $(PATH_SRC)app/
-SRCS		=	$(PATH_APP)server.c $(PATH_APP)routes.c  $(PATH_LIBS)mongoose.c $(PATH_LIBS)mjson.c $(PATH_CONTROLLERS)book_controller.c $(PATH_MODELS)book.c
+PATH_UTILS = $(PATH_SRC)utils/
+SRCS		=	$(PATH_APP)server.c $(PATH_APP)routes.c  $(PATH_LIBS)mongoose.c $(PATH_LIBS)mjson.c $(PATH_CONTROLLERS)book_controller.c $(PATH_MODELS)book.c $(PATH_UTILS)get_id.c
 
 OBJS		= $(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRCS))
 
@@ -44,6 +45,7 @@ $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJ)models/
 	@mkdir -p $(PATH_OBJ)libs/
 	@mkdir -p $(PATH_OBJ)app/
+	@mkdir -p $(PATH_OBJ)utils/
 	@$(CC) $(CFLAGS) $(INCLUDES) $(LIBFLAGS) -c $< -o $@
 
 clean: 

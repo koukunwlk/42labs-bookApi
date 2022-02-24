@@ -45,3 +45,23 @@ void	store_book(new_book *book)
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
 }
+
+void	delete_book(int id)
+{
+	MYSQL_RES	*results;
+	MYSQL		conn;
+	char	 	query[2000];
+
+	results = NULL;
+	mysql_init(&conn);
+	if (mysql_real_connect(&conn, HOSTDB, USER, PASSWORD, DB, 0, NULL, 0))
+	{
+		sprintf(query, "DELETE FROM books where id=%d", id);
+		mysql_query(&conn, query);
+	}
+	else
+	{
+		printf("Failed to connect to database\n");
+		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
+	}
+}

@@ -1,6 +1,6 @@
 #include "server.h"
 
-char *create_book(struct mg_http_message *hm)
+char	*create_book(struct mg_http_message *hm)
 {
 	new_book book;
 	json_object *status = json_object_new_object();
@@ -16,7 +16,7 @@ char *create_book(struct mg_http_message *hm)
 	return ((char *)json_object_to_json_string(status));
 }
 
-char *show_books()
+char	*show_books()
 {
 	MYSQL_RES *results;
 	MYSQL_ROW row;
@@ -39,4 +39,15 @@ char *show_books()
 		row = mysql_fetch_row(results);
 	}
 	return ((char *)json_object_to_json_string(books));
+}
+
+char	*remove_book(struct mg_http_message *hm)
+{
+	int 	id;
+	json_object *status = json_object_new_object();
+
+	id = get_id((char *)hm->query.ptr);
+	delete_book(id);
+	json_object_object_add(status, "status", json_object_new_string("ok"));
+	return ((char *)json_object_to_json_string(status));
 }
