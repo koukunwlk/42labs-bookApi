@@ -1,7 +1,7 @@
 NAME		= bookApi
 
 CC			= clang
-CFLAGS		= -Wall
+CFLAGS		= 
 
 RM			= rm -rf
 

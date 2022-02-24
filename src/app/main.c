@@ -65,7 +65,6 @@ char *get_books(void)
 	json_object *arr = json_object_new_array();
 	json_object *res = json_object_new_object();
 	json_object *value;
-	int			i;
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, "localhost", "moacir", "12091997", "testC", 0, NULL, 0))
 	{
@@ -76,7 +75,7 @@ char *get_books(void)
 		while(row != 0)
 		{
 			obj = json_object_new_object();
-			value = json_object_new_string(row[0]); 
+			value = json_object_new_string(row[1]); 
 			json_object_object_add(obj, "name", value);
 			json_object_array_add(arr, obj);
 			row = mysql_fetch_row(results);
