@@ -1,11 +1,11 @@
 NAME		= bookApi
 
-CC			= clang
-CFLAGS		= 
+CC			= gcc
+CFLAGS		= -g
 
 RM			= rm -rf
 
-MAKEFLAGS += -silent
+# MAKEFLAGS += --silent
 
 B			=		$(shell tput bold)
 BLA 		=	$(shell tput setaf 0)
@@ -20,22 +20,22 @@ D 			=	$(shell tput sgr0)
 BEL 		=	$(shell tput bel)
 CLR 		=	$(shell tput el 1)
 
-INCLUDE 	= -I ./includes/
-LIBFLAGS	= `mysql_config --cflags --libs` -ljson-c
+INCLUDES	= -I ./includes/
+LIBFLAGS	= `mysql_config --libs` -ljson-c
 PATH_OBJ	= ./objs/
 PATH_SRC	= ./src/
 PATH_CONTROLLERS = $(PATH_SRC)controllers/
 PATH_MODELS = $(PATH_SRC)models/
 PATH_LIBS = $(PATH_SRC)libs/
 PATH_APP = $(PATH_SRC)app/
-SRCS		=	$(PATH_APP)main.c $(PATH_LIBS)mongoose.c $(PATH_LIBS)mjson.c
+SRCS		=	$(PATH_APP)server.c $(PATH_APP)routes.c  $(PATH_LIBS)mongoose.c $(PATH_LIBS)mjson.c 
 
 OBJS		= $(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRCS))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(INCLUDE) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS)  $(LIBFLAGS)  -o $(NAME)
 	@echo "$(GRE)Book Api compiled!\n$(D)"
 
 $(PATH_OBJ)%.o: $(PATH_SRC)%.c
@@ -44,7 +44,7 @@ $(PATH_OBJ)%.o: $(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJ)models/
 	@mkdir -p $(PATH_OBJ)libs/
 	@mkdir -p $(PATH_OBJ)app/
-	@$(CC) $(CFLAGS) $(LIBFLAGS) $(INCLUDE) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) $(LIBFLAGS) -c $< -o $@
 
 clean: 
 	@$(RM) $(PATH_OBJ)
@@ -55,3 +55,6 @@ fclean: clean
 	@echo "$(RED)Removing Book Api binary.$(D)"
 
 re: fclean all
+
+run: re
+	./bookApi
