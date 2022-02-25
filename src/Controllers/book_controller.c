@@ -1,6 +1,6 @@
 #include "server.h"
 
-void init_book(new_book *book)
+static void init_book(new_book *book)
 {
 	strcpy(book->name, "");
 	strcpy(book->author, "");
@@ -85,28 +85,36 @@ char	*show_book(struct mg_http_message *hm)
 
 char	*update_book(struct mg_http_message *hm)
 {
-	new_book book;
-	init_book(&book);
+	new_book	book;
 	const char	*tmp;
-	int		n;
+	int			n;
+	int			id;
+	json_object *status = json_object_new_object();
 
+	init_book(&book);
+	id = get_id((char *)hm->query.ptr);
+	if(get_book(id) == NULL)
+		return (send_json_error("Book not found"));
+	
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.name", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.name", book.name, sizeof(book.name));
+	
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.publish_date", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.publish_date", book.publish_date, sizeof(book.publish_date));
+	
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.author", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.author", book.author, sizeof(book.author));
+	
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.publisher", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.publisher", book.publisher, sizeof(book.publisher));
+	
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.ISBN", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.ISBN", book.ISBN, sizeof(book.ISBN));
+	
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.category_code", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.category_code", book.category_code, sizeof(book.category_code));
-	printf("Book fild 1 = %s\n",book.name);
-	printf("Book fild 2 = %s\n",book.publish_date);
-	printf("Book fild 3 = %s\n",book.author);
-	printf("Book fild 4 = %s\n",book.publisher);
-	printf("Book fild 5 = %s\n",book.ISBN);
-	printf("Book fild 6 = %s\n",book.category_code);
+	update_book_db(&book, id);
+	json_object_object_add(status, "status", json_object_new_string("ok"));
+	return ((char *)json_object_to_json_string(status));
 }
 
