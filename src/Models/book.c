@@ -65,3 +65,31 @@ void	delete_book(int id)
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
 }
+
+MYSQL_ROW get_book(int id)
+{
+	MYSQL_RES	*results;
+	MYSQL_ROW	row;
+	MYSQL		conn;
+	char	 	query[2000];
+
+	results = NULL;
+	row = NULL;
+	mysql_init(&conn);
+	if (mysql_real_connect(&conn, HOSTDB, USER, PASSWORD, DB, 0, NULL, 0))
+	{
+		sprintf(query,	"SELECT books.name, publish_date, author, publisher,categories.name as Category FROM books "
+						"JOIN categories on books.category_code = categories.id "
+						"WHERE books.id=%d", id);
+		mysql_query(&conn, query);
+		results = mysql_store_result(&conn);
+		row = mysql_fetch_row(results);
+		mysql_close(&conn);
+	}
+	else
+	{
+		printf("Failed to connect to database\n");
+		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
+	}
+	return (row);
+}

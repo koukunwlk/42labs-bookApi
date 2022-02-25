@@ -23,7 +23,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			return (mg_http_reply(c, 200, "", remove_book(hm)));
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
-			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo GET"));
+			return (mg_http_reply(c, 200, "", show_book(hm)));
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
 			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo PUT"));

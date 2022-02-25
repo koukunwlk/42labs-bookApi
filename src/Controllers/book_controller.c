@@ -34,7 +34,6 @@ char	*show_books()
 		json_object_object_add(book, "author", json_object_new_string(row[2]));
 		json_object_object_add(book, "publisher", json_object_new_string(row[3]));
 		json_object_object_add(book, "category", json_object_new_string(row[4]));
-		printf("json obj = %s\n", json_object_to_json_string(book));
 		json_object_array_add(books, book);
 		row = mysql_fetch_row(results);
 	}
@@ -50,4 +49,23 @@ char	*remove_book(struct mg_http_message *hm)
 	delete_book(id);
 	json_object_object_add(status, "status", json_object_new_string("ok"));
 	return ((char *)json_object_to_json_string(status));
+}
+
+char	*show_book(struct mg_http_message *hm)
+{
+	json_object *book = json_object_new_object();
+
+	if(strncmp(hm->query.ptr, "id=", 3) == 0)
+	{
+		int id = get_id((char *)hm->query.ptr);
+		MYSQL_ROW row = get_book(id);
+		if(!row)
+			return(send_json_error("Book not found"));
+		json_object_object_add(book, "name", json_object_new_string(row[0]));
+		json_object_object_add(book, "publish_date", json_object_new_string(row[1]));
+		json_object_object_add(book, "author", json_object_new_string(row[2]));
+		json_object_object_add(book, "publisher", json_object_new_string(row[3]));
+		json_object_object_add(book, "category", json_object_new_string(row[4]));
+	}
+	return((char *)json_object_to_json_string(book));
 }
