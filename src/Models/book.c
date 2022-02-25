@@ -93,3 +93,8 @@ MYSQL_ROW get_book(int id)
 	}
 	return (row);
 }
+
+void update_book_db(new_book update_book)
+{
+	
+}

@@ -26,7 +26,10 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			return (mg_http_reply(c, 200, "", show_book(hm)));
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
+		{
+			update_book(hm);
 			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo PUT"));
+		}
 
 		else
 			return (mg_http_reply(c, 405, "", "Metodo nao permitido"));
