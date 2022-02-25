@@ -29,7 +29,7 @@ PATH_MODELS = $(PATH_SRC)models/
 PATH_LIBS = $(PATH_SRC)libs/
 PATH_APP = $(PATH_SRC)app/
 PATH_UTILS = $(PATH_SRC)utils/
-SRCS		=	$(PATH_APP)server.c $(PATH_APP)routes.c  $(PATH_LIBS)mongoose.c $(PATH_LIBS)mjson.c $(PATH_CONTROLLERS)book_controller.c $(PATH_MODELS)book.c $(PATH_UTILS)get_id.c $(PATH_UTILS)send_json_error.c
+SRCS		=	$(PATH_APP)server.c $(PATH_APP)routes.c  $(PATH_LIBS)mongoose.c $(PATH_LIBS)mjson.c $(PATH_CONTROLLERS)book_controller.c $(PATH_MODELS)book.c $(PATH_CONTROLLERS)category_controller.c $(PATH_MODELS)category.c $(PATH_UTILS)get_id.c $(PATH_UTILS)send_json_error.c
 
 OBJS		= $(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRCS))
 

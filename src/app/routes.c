@@ -26,10 +26,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			return (mg_http_reply(c, 200, "", show_book(hm)));
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
-		{
-			update_book(hm);
-			return (mg_http_reply(c, 200, "", "Endpoit books/* metodo PUT"));
-		}
+			return (mg_http_reply(c, 200, "", update_book(hm)));
 
 		else
 			return (mg_http_reply(c, 405, "", "Metodo nao permitido"));
@@ -43,7 +40,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			mg_http_reply(c, 200, "", "Endpoit categories/ metodo post");
 
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
-			mg_http_reply(c, 200, "", "Endpoit categories/ metodo get");
+			mg_http_reply(c, 200, "", show_categories());
 
 		else
 			mg_http_reply(c, 405, "", "Metodo nao permitido");
@@ -55,7 +52,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			mg_http_reply(c, 200, "", "Endpoit categories/* metodo delete");
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
-			mg_http_reply(c, 200, "", "Endpoit categories/* metodo GET");
+			mg_http_reply(c, 200, "", "");
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
 			mg_http_reply(c, 200, "", "Endpoit categories/* metodo PUT");

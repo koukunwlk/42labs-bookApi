@@ -31,6 +31,7 @@ MYSQL_RES	*get_books(void);
 MYSQL_ROW 	get_book(int id);
 void		store_book(new_book *book);
 void		delete_book(int id);
+void 		update_book_db(new_book *updated_book, int id);
 
 char 		*show_books();
 char		*create_book(struct mg_http_message *hm);
@@ -38,6 +39,9 @@ char		*remove_book(struct mg_http_message *hm);
 char		*show_book(struct mg_http_message *hm);
 char		*update_book(struct mg_http_message *hm);
 
+MYSQL_RES *get_categories(void);
+
+char	*show_categories();
 
 int			get_id(char *str);
 char		*send_json_error(char *msg);
