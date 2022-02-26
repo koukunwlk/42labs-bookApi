@@ -49,13 +49,13 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	else if (mg_http_match_uri(hm, "/categories/*"))
 	{
 		if(strncmp(hm->method.ptr, "DELETE", 6) == 0)
-			mg_http_reply(c, 200, "", "Endpoit categories/* metodo delete");
+			mg_http_reply(c, 200, "", remove_category(hm));
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
 			mg_http_reply(c, 200, "", show_category(hm));
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
-			mg_http_reply(c, 200, "", "Endpoit categories/* metodo PUT");
+			mg_http_reply(c, 200, "", update_category(hm));
 		else
 			mg_http_reply(c, 405, "", "Metodo nao permitido");
 	}

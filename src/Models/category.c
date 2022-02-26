@@ -90,9 +90,8 @@ MYSQL_ROW get_category(int id)
 	}
 	return (row);
 }
-/* 
 
-void update_book_db(new_book *updated_book, int id)
+void update_category_db(char *category_name, int id)
 {
 	MYSQL_RES *results;
 	int		   status;
@@ -102,27 +101,9 @@ void update_book_db(new_book *updated_book, int id)
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, HOSTDB, USER, PASSWORD, DB, 0, NULL, 0))
 	{
-		sprintf(query, "UPDATE categories SET name='%s' WHERE id=%d AND '%s'<> ''", updated_book->name, id, updated_book->name);
-		mysql_query(&conn, query);
-
-		sprintf(query, "UPDATE categories SET author='%s' WHERE id=%d AND '%s'<> ''", updated_book->author, id, updated_book->author);
-		mysql_query(&conn, query);
-
-		sprintf(query, "UPDATE categories SET publisher='%s' WHERE id=%d AND '%s'<> ''", updated_book->publisher, id, updated_book->publisher);
-		mysql_query(&conn, query);
-
-		sprintf(query, "UPDATE categories SET publish_date='%s' WHERE id=%d AND '%s'<> ''", updated_book->publish_date, id, updated_book->publish_date);
-		mysql_query(&conn, query);
-
-		sprintf(query, "UPDATE categories SET ISBN='%s' WHERE id=%d AND '%s'<> ''", updated_book->ISBN, id, updated_book->ISBN);
-		mysql_query(&conn, query);
-
-		sprintf(query, "UPDATE categories SET name='%s' WHERE id=%d AND '%s'<> ''", updated_book->name, id, updated_book->name);
-		mysql_query(&conn, query);
-
-		sprintf(query, "UPDATE categories SET category_code=%d WHERE id=%d AND '%s'<> ''", atoi(updated_book->category_code), id, updated_book->category_code);
-		mysql_query(&conn, query);
+		sprintf(query, "UPDATE categories SET name='%s' WHERE id=%d AND '%s'<> ''", category_name, id, category_name);
 		
+		mysql_query(&conn, query);
 		mysql_close(&conn);
 	}
 	else
@@ -130,4 +111,4 @@ void update_book_db(new_book *updated_book, int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
-} */
+} 

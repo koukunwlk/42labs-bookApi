@@ -45,7 +45,6 @@ char	*remove_category(struct mg_http_message *hm)
 	return ((char *)json_object_to_json_string(status));
 }
 
-
 char	*show_category(struct mg_http_message *hm)
 {
 	json_object *category = json_object_new_object();
@@ -61,16 +60,21 @@ char	*show_category(struct mg_http_message *hm)
 	}
 	return((char *)json_object_to_json_string(category));
 }
-/* 
 
 char	*update_category(struct mg_http_message *hm)
 {
 	const char	*tmp;
-	char		*category;
+	char		category[255];
 	int			n;
 	int			id;
 	json_object *status = json_object_new_object();
 
+	if(hm->query.ptr == NULL)
+		return (send_json_error("Query not provided"));
+	
+	if(!has_query((char *)hm->query.ptr))
+		return (send_json_error("Field not found"));
+	
 	id = get_id((char *)hm->query.ptr);
 	if(get_category(id) == NULL)
 		return (send_json_error("category not found"));
@@ -78,9 +82,8 @@ char	*update_category(struct mg_http_message *hm)
 	if(mjson_find(hm->body.ptr, hm->body.len, "$.name", &tmp, &n)!= MJSON_TOK_INVALID)
 		mjson_get_string(hm->body.ptr, hm->body.len, "$.name", category, sizeof(category));
 	
-	update_category_db(&category, id);
+	update_category_db(category, id);
+
 	json_object_object_add(status, "status", json_object_new_string("ok"));
 	return ((char *)json_object_to_json_string(status));
 }
-
- */

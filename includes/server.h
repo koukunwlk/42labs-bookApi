@@ -39,15 +39,20 @@ char		*remove_book(struct mg_http_message *hm);
 char		*show_book(struct mg_http_message *hm);
 char		*update_book(struct mg_http_message *hm);
 
-MYSQL_RES *get_categories(void);
-MYSQL_ROW get_category(int id);
-void	store_category(char *category_name);
+MYSQL_RES 	*get_categories(void);
+MYSQL_ROW 	get_category(int id);
+void		store_category(char *category_name);
+void		delete_category(int id);
+void 		update_category_db(char *category_name, int id);
 
-char	*show_categories();
-char	*create_category(struct mg_http_message *hm);
-char	*show_category(struct mg_http_message *hm);
+char		*show_categories();
+char		*show_category(struct mg_http_message *hm);
+char		*create_category(struct mg_http_message *hm);
+char		*remove_category(struct mg_http_message *hm);
+char		*update_category(struct mg_http_message *hm);
 
 int			get_id(char *str);
 char		*send_json_error(char *msg);
+int			has_query(char *query);
 
 # endif
