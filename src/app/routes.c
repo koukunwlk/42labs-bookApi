@@ -8,7 +8,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	if(mg_http_match_uri(hm, "/books"))
 	{
 		if(strncmp(hm->method.ptr, "POST", 4) == 0)
-			return (mg_http_reply(c, 200, "", create_book(hm)));
+			return (mg_http_reply(c, 201, "", create_book(hm)));
 
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
 			return (mg_http_reply(c, 200, "", show_books()));
@@ -20,7 +20,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	else if (mg_http_match_uri(hm, "/books/*"))
 	{
 		if(strncmp(hm->method.ptr, "DELETE", 6) == 0)
-			return (mg_http_reply(c, 200, "", remove_book(hm)));
+			return (mg_http_reply(c, 202, "", remove_book(hm)));
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
 			return (mg_http_reply(c, 200, "", show_book(hm)));
@@ -37,7 +37,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	if(mg_http_match_uri(hm, "/categories"))
 	{
 		if(strncmp(hm->method.ptr, "POST", 4) == 0)
-			mg_http_reply(c, 200, "", create_category(hm));
+			mg_http_reply(c, 201, "", create_category(hm));
 
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
 			mg_http_reply(c, 200, "", show_categories());
@@ -49,7 +49,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	else if (mg_http_match_uri(hm, "/categories/*"))
 	{
 		if(strncmp(hm->method.ptr, "DELETE", 6) == 0)
-			mg_http_reply(c, 200, "", remove_category(hm));
+			mg_http_reply(c, 202, "", remove_category(hm));
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
 			mg_http_reply(c, 200, "", show_category(hm));

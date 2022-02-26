@@ -49,6 +49,12 @@ char	*show_category(struct mg_http_message *hm)
 {
 	json_object *category = json_object_new_object();
 
+	if(hm->query.ptr == NULL)
+		return (send_json_error("Query not provided"));
+	
+	if(!has_field((char *)hm->query.ptr))
+		return (send_json_error("Field not found"));
+
 	if(strncmp(hm->query.ptr, "id=", 3) == 0)
 	{
 		int id = get_id((char *)hm->query.ptr);
@@ -72,7 +78,7 @@ char	*update_category(struct mg_http_message *hm)
 	if(hm->query.ptr == NULL)
 		return (send_json_error("Query not provided"));
 	
-	if(!has_query((char *)hm->query.ptr))
+	if(!has_field((char *)hm->query.ptr))
 		return (send_json_error("Field not found"));
 	
 	id = get_id((char *)hm->query.ptr);

@@ -55,6 +55,12 @@ char	*remove_book(struct mg_http_message *hm)
 	int 	id;
 	json_object *status = json_object_new_object();
 
+	if(hm->query.ptr == NULL)
+		return (send_json_error("Query not provided"));
+	
+	if(!has_field((char *)hm->query.ptr))
+		return (send_json_error("Field not found"));
+
 	id = get_id((char *)hm->query.ptr);
 	if(get_book(id) == NULL)
 		return (send_json_error("Book not found"));
@@ -67,11 +73,16 @@ char	*show_book(struct mg_http_message *hm)
 {
 	json_object *book = json_object_new_object();
 
+	if(hm->query.ptr == NULL)
+		return (send_json_error("Query not provided"));
+	
+	if(!has_field((char *)hm->query.ptr))
+		return (send_json_error("Field not found"));
+
 	if(strncmp(hm->query.ptr, "id=", 3) == 0)
 	{
 		int id = get_id((char *)hm->query.ptr);
 		MYSQL_ROW row = get_book(id);
-		printf("book = %s\n",send_json_error("Book not found"));
 		if(!row)
 			return(send_json_error("Book not found"));
 		json_object_object_add(book, "name", json_object_new_string(row[0]));
@@ -90,6 +101,12 @@ char	*update_book(struct mg_http_message *hm)
 	int			n;
 	int			id;
 	json_object *status = json_object_new_object();
+
+	if(hm->query.ptr == NULL)
+		return (send_json_error("Query not provided"));
+	
+	if(!has_field((char *)hm->query.ptr))
+		return (send_json_error("Field not found"));
 
 	init_book(&book);
 	id = get_id((char *)hm->query.ptr);

@@ -53,6 +53,6 @@ char		*update_category(struct mg_http_message *hm);
 
 int			get_id(char *str);
 char		*send_json_error(char *msg);
-int			has_query(char *query);
+int			has_field(char *query);
 
 # endif
