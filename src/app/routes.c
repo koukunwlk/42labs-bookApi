@@ -37,7 +37,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 	if(mg_http_match_uri(hm, "/categories"))
 	{
 		if(strncmp(hm->method.ptr, "POST", 4) == 0)
-			mg_http_reply(c, 200, "", "Endpoit categories/ metodo post");
+			mg_http_reply(c, 200, "", create_category(hm));
 
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
 			mg_http_reply(c, 200, "", show_categories());
@@ -52,7 +52,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			mg_http_reply(c, 200, "", "Endpoit categories/* metodo delete");
 
 		else if(strncmp(hm->method.ptr, "GET", 3) == 0)
-			mg_http_reply(c, 200, "", "");
+			mg_http_reply(c, 200, "", show_category(hm));
 		
 		else if(strncmp(hm->method.ptr, "PUT", 3) == 0)
 			mg_http_reply(c, 200, "", "Endpoit categories/* metodo PUT");

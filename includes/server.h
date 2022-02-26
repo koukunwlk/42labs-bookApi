@@ -40,8 +40,12 @@ char		*show_book(struct mg_http_message *hm);
 char		*update_book(struct mg_http_message *hm);
 
 MYSQL_RES *get_categories(void);
+MYSQL_ROW get_category(int id);
+void	store_category(char *category_name);
 
 char	*show_categories();
+char	*create_category(struct mg_http_message *hm);
+char	*show_category(struct mg_http_message *hm);
 
 int			get_id(char *str);
 char		*send_json_error(char *msg);

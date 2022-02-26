@@ -10,7 +10,7 @@ MYSQL_RES *get_categories(void)
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, HOSTDB, USER, PASSWORD, DB, 0, NULL, 0))
 	{
-		query = "SELECT categories.name FROM categories";
+		query = "SELECT * FROM categories";
 		mysql_query(&conn, query);
 		results = mysql_store_result(&conn);
 		mysql_close(&conn);
@@ -24,7 +24,7 @@ MYSQL_RES *get_categories(void)
 	return (results);
 }
 
-/* void	store_book(new_book *category)
+void	store_category(char *category_name)
 {
 	MYSQL_RES *results;
 	int		   status;
@@ -34,7 +34,7 @@ MYSQL_RES *get_categories(void)
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, HOSTDB, USER, PASSWORD, DB, 0, NULL, 0))
 	{
-		sprintf(query, "INSERT INTO categories(name, publish_date, author, publisher, ISBN, category_code, created_at)VALUES('%s', '%s', '%s', '%s', '%s', %d, NOW())",category->name, category->publish_date, category->author, category->publisher, category->ISBN, atoi(category->category_code));
+		sprintf(query, "INSERT INTO categories(name, created_at)VALUES('%s', NOW())", category_name);
 		mysql_query(&conn, query);
 	}
 	else
@@ -44,7 +44,7 @@ MYSQL_RES *get_categories(void)
 	}
 }
 
-void	delete_book(int id)
+void	delete_category(int id)
 {
 	MYSQL_RES	*results;
 	MYSQL		conn;
@@ -64,7 +64,7 @@ void	delete_book(int id)
 	}
 }
 
-MYSQL_ROW get_book(int id)
+MYSQL_ROW get_category(int id)
 {
 	MYSQL_RES	*results;
 	MYSQL_ROW	row;
@@ -76,8 +76,7 @@ MYSQL_ROW get_book(int id)
 	mysql_init(&conn);
 	if (mysql_real_connect(&conn, HOSTDB, USER, PASSWORD, DB, 0, NULL, 0))
 	{
-		sprintf(query,	"SELECT categories.name, publish_date, author, publisher,categories.name as Category FROM categories "
-						"JOIN categories on categories.category_code = categories.id "
+		sprintf(query,	"SELECT * FROM categories "
 						"WHERE categories.id=%d", id);
 		mysql_query(&conn, query);
 		results = mysql_store_result(&conn);
@@ -91,6 +90,7 @@ MYSQL_ROW get_book(int id)
 	}
 	return (row);
 }
+/* 
 
 void update_book_db(new_book *updated_book, int id)
 {

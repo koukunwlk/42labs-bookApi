@@ -1,5 +1,5 @@
 #include "server.h"
-/* 
+
 char	*create_category(struct mg_http_message *hm)
 {
 	char category_name[255];
@@ -10,7 +10,7 @@ char	*create_category(struct mg_http_message *hm)
 	json_object_object_add(status, "status", json_object_new_string("ok"));
 	return ((char *)json_object_to_json_string(status));
 }
- */
+
 char	*show_categories()
 {
 	MYSQL_RES *results;
@@ -24,13 +24,14 @@ char	*show_categories()
 	while(row != 0)
 	{
 		category = json_object_new_object();
-		json_object_object_add(category, "name", json_object_new_string(row[0]));
+		json_object_object_add(category, "id", json_object_new_string(row[0]));
+		json_object_object_add(category, "name", json_object_new_string(row[1]));
 		json_object_array_add(categories, category);
 		row = mysql_fetch_row(results);
 	}
 	return ((char *)json_object_to_json_string(categories));
 }
-/* 
+
 char	*remove_category(struct mg_http_message *hm)
 {
 	int 	id;
@@ -44,6 +45,7 @@ char	*remove_category(struct mg_http_message *hm)
 	return ((char *)json_object_to_json_string(status));
 }
 
+
 char	*show_category(struct mg_http_message *hm)
 {
 	json_object *category = json_object_new_object();
@@ -52,13 +54,14 @@ char	*show_category(struct mg_http_message *hm)
 	{
 		int id = get_id((char *)hm->query.ptr);
 		MYSQL_ROW row = get_category(id);
-		printf("category = %s\n",send_json_error("category not found"));
 		if(!row)
 			return(send_json_error("category not found"));
-		json_object_object_add(category, "name", json_object_new_string(row[0]));
+		json_object_object_add(category, "id", json_object_new_string(row[0]));
+		json_object_object_add(category, "name", json_object_new_string(row[1]));
 	}
 	return((char *)json_object_to_json_string(category));
 }
+/* 
 
 char	*update_category(struct mg_http_message *hm)
 {
