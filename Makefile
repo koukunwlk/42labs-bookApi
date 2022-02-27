@@ -59,3 +59,12 @@ re: fclean all
 
 run: re
 	./bookApi
+
+init_db: 
+	@$(CC) $(CFLAGS) -I .  ./db_init/main.c ./db_init/init_db.c ./db_init/populate_db.c `mysql_config --libs` -o init_db
+	@echo "$(GRE)Init_db compiled\n$(D)"
+	@echo "$(GRE)Running configs\n$(D)"
+	./init_db
+	@echo "$(GRE)Done\n$(D)"
+	@echo "$(RED)Removing Init_db binary.$(D)"
+	rm init_db
