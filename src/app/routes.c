@@ -60,5 +60,6 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			mg_http_reply(c, 405, "", "Metodo nao permitido");
 	}
 	else
-		mg_http_reply(c, 404, "", "Endpoit not found");
+		mg_http_reply(c, 404, "", send_json_error("Endpoit not found"));
+	
 }

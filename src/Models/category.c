@@ -21,6 +21,7 @@ MYSQL_RES *get_categories(void)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
+	mysql_library_end();
 	return (results);
 }
 
@@ -42,6 +43,7 @@ void	store_category(char *category_name)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
+	mysql_library_end();
 }
 
 void	delete_category(int id)
@@ -62,6 +64,7 @@ void	delete_category(int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
+	mysql_library_end();
 }
 
 MYSQL_ROW get_category(int id)
@@ -88,6 +91,7 @@ MYSQL_ROW get_category(int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
+	mysql_library_end();
 	return (row);
 }
 
@@ -111,4 +115,5 @@ void update_category_db(char *category_name, int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
+	mysql_library_end();
 } 
