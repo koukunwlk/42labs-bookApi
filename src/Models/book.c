@@ -23,7 +23,6 @@ MYSQL_RES *get_books(void)
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
 	
-	mysql_library_end();
 	return (results);
 }
 
@@ -45,7 +44,6 @@ void	store_book(new_book *book)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
-	mysql_library_end();
 }
 
 void	delete_book(int id)
@@ -66,7 +64,6 @@ void	delete_book(int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
-	mysql_library_end();
 }
 
 MYSQL_ROW get_book(int id)
@@ -94,7 +91,6 @@ MYSQL_ROW get_book(int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
-	mysql_library_end();
 	return (row);
 }
 
@@ -136,5 +132,4 @@ void update_book_db(new_book *updated_book, int id)
 		printf("Failed to connect to database\n");
 		printf("Error %d: %s\n", mysql_errno(&conn), mysql_error(&conn));
 	}
-	mysql_library_end();
 }
