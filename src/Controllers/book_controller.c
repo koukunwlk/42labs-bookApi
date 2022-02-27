@@ -15,6 +15,7 @@ char	*create_book(struct mg_http_message *hm)
 	new_book book;
 	json_object *status = json_object_new_object();
 
+	log_request((char *)hm->head.ptr);
 	mjson_get_string(hm->body.ptr, hm->body.len, "$.name", book.name, sizeof(book.name));
 	mjson_get_string(hm->body.ptr, hm->body.len, "$.publish_date", book.publish_date, sizeof(book.publish_date));
 	mjson_get_string(hm->body.ptr, hm->body.len, "$.author", book.author, sizeof(book.author));
@@ -26,7 +27,7 @@ char	*create_book(struct mg_http_message *hm)
 	return ((char *)json_object_to_json_string(status));
 }
 
-char	*show_books()
+char	*show_books(struct mg_http_message *hm)
 {
 	MYSQL_RES *results;
 	MYSQL_ROW row;
@@ -36,6 +37,7 @@ char	*show_books()
 	results = get_books();
 	row = mysql_fetch_row(results);
 	books = json_object_new_array();
+	log_request((char *)hm->head.ptr);
 	while(row != 0)
 	{
 		book = json_object_new_object();
@@ -55,6 +57,7 @@ char	*remove_book(struct mg_http_message *hm)
 	int 	id;
 	json_object *status = json_object_new_object();
 
+	log_request((char *)hm->head.ptr);
 	if(hm->query.ptr == NULL)
 		return (send_json_error("Query not provided"));
 	
@@ -73,6 +76,7 @@ char	*show_book(struct mg_http_message *hm)
 {
 	json_object *book = json_object_new_object();
 
+	log_request((char *)hm->head.ptr);
 	if(hm->query.ptr == NULL)
 		return (send_json_error("Query not provided"));
 	
@@ -102,6 +106,7 @@ char	*update_book(struct mg_http_message *hm)
 	int			id;
 	json_object *status = json_object_new_object();
 
+	log_request((char *)hm->head.ptr);
 	if(hm->query.ptr == NULL)
 		return (send_json_error("Query not provided"));
 	

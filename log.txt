@@ -1,0 +1,11 @@
+GET /books/?id=4
+GET /books HTTP/1.1
+POST /books HTTP/1.1
+PUT /books/?id=4
+DELETE /books/?id=4
+
+GET /categories HTTP/1.1
+GET /categories/?id=1
+POST /categories HTTP/1.1
+PUT /categories/?id=3
+DELETE /categories/?id=3

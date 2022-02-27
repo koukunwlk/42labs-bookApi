@@ -53,7 +53,8 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
-	@echo "$(RED)Removing Book Api binary.$(D)"
+	@$(RM) bookcli
+	@echo "$(RED)Removing Book Api binary and Book cli binary.$(D)"
 
 re: fclean all
 
@@ -68,3 +69,6 @@ init_db:
 	@echo "$(GRE)Done\n$(D)"
 	@echo "$(RED)Removing Init_db binary.$(D)"
 	rm init_db
+cli:
+	gcc cli.c -o bookcli
+	@echo "$(GRE)Book cli compiled!\n$(D)"

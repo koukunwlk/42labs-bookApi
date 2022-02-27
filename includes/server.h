@@ -12,7 +12,6 @@
 # include <mysql/mysql.h>
 # include <json-c/json.h>
 # include <string.h>
-
 typedef struct book {
 	char	name[255];
 	char	publish_date[255];
@@ -33,7 +32,7 @@ void		store_book(new_book *book);
 void		delete_book(int id);
 void 		update_book_db(new_book *updated_book, int id);
 
-char 		*show_books();
+char 		*show_books(struct mg_http_message *hm);
 char		*create_book(struct mg_http_message *hm);
 char		*remove_book(struct mg_http_message *hm);
 char		*show_book(struct mg_http_message *hm);
@@ -45,7 +44,7 @@ void		store_category(char *category_name);
 void		delete_category(int id);
 void 		update_category_db(char *category_name, int id);
 
-char		*show_categories();
+char		*show_categories(struct mg_http_message *hm);
 char		*show_category(struct mg_http_message *hm);
 char		*create_category(struct mg_http_message *hm);
 char		*remove_category(struct mg_http_message *hm);
@@ -54,5 +53,5 @@ char		*update_category(struct mg_http_message *hm);
 int			get_id(char *str);
 char		*send_json_error(char *msg);
 int			has_field(char *query);
-
+void 		log_request(char *str);
 # endif

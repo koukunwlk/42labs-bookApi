@@ -11,7 +11,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			return (mg_http_reply(c, 201, "", create_book(hm)));
 
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
-			return (mg_http_reply(c, 200, "", show_books()));
+			return (mg_http_reply(c, 200, "", show_books(hm)));
 
 		else
 			return (mg_http_reply(c, 405, "", "Metodo nao permitido"));
@@ -40,7 +40,7 @@ void	routes(struct mg_connection *c,struct mg_http_message *hm)
 			mg_http_reply(c, 201, "", create_category(hm));
 
 		else if (strncmp(hm->method.ptr, "GET", 3) == 0)
-			mg_http_reply(c, 200, "", show_categories());
+			mg_http_reply(c, 200, "", show_categories(hm));
 
 		else
 			mg_http_reply(c, 405, "", "Metodo nao permitido");
