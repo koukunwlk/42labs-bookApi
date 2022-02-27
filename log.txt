@@ -9,3 +9,36 @@ GET /categories/?id=1
 POST /categories HTTP/1.1
 PUT /categories/?id=3
 DELETE /categories/?id=3
+DELETE /categories/?id=3 HTTP/1.1
+DELETE /categories/?id=2 HTTP/1.1
+DELETE /categories/?id=2 HTTP/1.1
+PUT /books/?id=4 HTTP/1.1
+POST /books HTTP/1.1
+GET /books HTTP/1.1
+GET /books HTTP/1.1
+GET /books HTTP/1.1
+GET /books/?id=4 HTTP/1.1
+DELETE /books/?id=4 HTTP/1.1
+PUT /books/?id=4 HTTP/1.1
+GET /categories HTTP/1.1
+GET /categories HTTP/1.1
+GET /categories HTTP/1.1
+GET /categories/?id=1 HTTP/1.1
+GET /categories/?id=1 HTTP/1.1
+POST /categories HTTP/1.1
+POST /categories HTTP/1.1
+PUT /categories/?id=3 HTTP/1.1
+PUT /categories/?id=3 HTTP/1.1
+POST /categories HTTP/1.1
+POST /categories HTTP/1.1
+DELETE /categories/?id=2 HTTP/1.1
+DELETE /categories/?id=2 HTTP/1.1
+DELETE /categories/?id=2 HTTP/1.1
+DELETE /categories/?sadasdasd HTTP/1.1
+DELETE /categories/?asdasdasdas HTTP/1.1
+DELETE /categories/saidhjaisdjas HTTP/1.1
+DELETE /categories/saidhjaisdjas HTTP/1.1
+GET /books/asudhausda HTTP/1.1
+GET /books/asudhausda HTTP/1.1
+GET /books/asudhausda HTTP/1.1
+GET /books HTTP/1.1

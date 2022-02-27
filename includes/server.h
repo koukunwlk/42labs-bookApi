@@ -1,10 +1,10 @@
 # ifndef SERVER_H
 # define SERVER_H
 # define HOST "http://0.0.0.0:3333"
-# define HOSTDB "localhost"
-# define USER "moacir"
-# define PASSWORD "12091997"
-# define DB "labs"
+# define HOSTDB ""
+# define USER ""
+# define PASSWORD ""
+# define DB ""
 
 # include <stdio.h>
 # include "mongoose.h"

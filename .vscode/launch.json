@@ -8,7 +8,7 @@
 			"name": "(gdb) Iniciar",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/a.out",
+			"program": "${workspaceFolder}/bookapi",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",

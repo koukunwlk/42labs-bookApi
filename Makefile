@@ -7,7 +7,7 @@ RM			= rm -rf
 
 # MAKEFLAGS += --silent
 
-B			=		$(shell tput bold)
+B			=	$(shell tput bold)
 BLA 		=	$(shell tput setaf 0)
 RED 		=	$(shell tput setaf 1)
 GRE 		=	$(shell tput setaf 2)
@@ -56,6 +56,10 @@ fclean: clean
 	@$(RM) bookcli
 	@echo "$(RED)Removing Book Api binary and Book cli binary.$(D)"
 
+dependencies:
+	sudo apt install libjson-c-dev
+	sudo apt install mysql-server
+	sudo apt install gcc
 re: fclean all
 
 run: re
